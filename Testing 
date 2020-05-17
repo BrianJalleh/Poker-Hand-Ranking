@@ -1,0 +1,361 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 15 09:32:18 2020
+
+@author: brianj
+"""
+
+"""
+ FizzBuzz Interview Question
+ 
+"""
+#%%
+
+def fizz_buzz(num):
+    if int(num)%5 == 0 and int(num)%3 == 0:
+        print("FizzBuzz")
+    elif int(num)%3 == 0:
+        print("Fizz")
+    elif int(num)%5 == 0:
+        print("Buzz")
+    else:
+        print(num)
+
+fizz_buzz(input("num: "))
+
+#%%
+
+"""
+
+Poker Hand Ranking
+
+"""
+
+Poker_cards = ['2','3','4','5','6','7','8','9','10','j','q','k', 'a']
+
+Poker_suits = ['d','c','h','s']
+
+
+def suits(hand):
+    
+        Number_of_same_suits = 0
+        
+        for suit in Poker_suits:
+            for card in hand:
+                
+                if card.lower().count(suit) == True:
+                    Number_of_same_suits += 1
+                    if Number_of_same_suits == 5:
+                        return(Number_of_same_suits)
+                    
+                else:
+                    Number_of_same_suits = 0
+        
+        
+
+def straight_type(hand):
+    
+    xindex = 0
+    yindex = 5
+    
+
+    
+    while yindex <= (len(Poker_cards)):
+        cards_for_straight = 0
+        repeated_card_values = 0
+    
+        b = Poker_cards[xindex:yindex]
+        for value in b:
+            repeated_card_values = 0
+            for card in hand:
+                
+                if card.lower().count(value) == True:
+                    repeated_card_values +=1
+                    cards_for_straight += 1
+                    
+                    if repeated_card_values > 1:
+                        cards_for_straight = 0
+                    
+                    elif cards_for_straight == 5:
+                        return(cards_for_straight)
+                    
+                    else:
+                        pass
+                
+                else:
+                    pass
+                
+            else:
+                pass
+        
+        xindex += 1
+        yindex += 1
+                
+
+
+def ranking(hand):
+    xindex = 0
+    number_of_pairs = 0
+    number_of_triples = 0
+    number_of_fours = 0
+    
+    while xindex < (len(Poker_cards)):
+        
+        for value in Poker_cards[xindex]:
+            
+            number_of_same_values = 0
+    
+            for card in hand:
+                
+                if card.lower().count(value) == 1:
+                    number_of_same_values += 1
+                    
+                    if number_of_same_values == 2:
+                        number_of_pairs += 1
+                    
+                    elif number_of_same_values == 3:
+                        number_of_triples += 1
+                        
+                    elif number_of_same_values == 4:
+                        number_of_fours += 1
+                        
+                    else:
+                        pass
+    
+                else:
+                    pass
+                
+        xindex += 1
+    
+    if number_of_pairs == 2 and number_of_triples == 1:
+        print("Full House")
+        
+    elif number_of_fours == 1:
+        print("Four of a Kind")
+        
+    elif number_of_triples == 1:
+        print("Three of a Kind")
+        
+    elif number_of_pairs == 2:
+        print("Two Pair")
+        
+    elif number_of_pairs == 1:
+        print("Pair")
+    
+    else:
+        print("High Card")
+        
+        
+        
+def main_ranking(number_of_same_suits, hand):
+    if number_of_same_suits == 5:
+        
+        cards_for_royal_flush = 0
+    
+        b = Poker_cards[8:13]
+    
+        for value in b:
+            for card in hand:
+                
+                if card.lower().count(value) == True:
+                    cards_for_royal_flush += 1
+                
+                else:
+                    pass
+                
+        if cards_for_royal_flush == 5:
+            print("Royal Flush")
+        
+        elif straight_type(hand) == 5:
+        
+            print("Straight Flush")
+        else:
+            print("Flush")
+    
+    else:
+        if straight_type(hand) == 5:
+            print("Straight")
+        
+        else:
+            ranking(hand)
+
+                        
+                    
+def poker_hand_ranking(hand):
+    main_ranking(suits(hand), hand)
+    
+                    
+        
+poker_hand_ranking(['4s', '10c', '6h', '5s', '9d'])
+
+
+
+#%%
+
+a= ['qc', 'c', 'qs', '3d', 'qh', "kd"]
+
+def straight_type(hand):
+    
+    xindex = 0
+    yindex = 5
+    
+
+    
+    while yindex <= (len(Poker_cards)):
+        cards_for_straight = 0
+        cards_not_in_straight = 0
+        repeated_card_values = 0
+    
+        b = Poker_cards[xindex:yindex]
+        print(b)
+        for value in b:
+            print(value)
+            repeated_card_values = 0
+            for card in hand:
+                print(card)
+                
+                if card.lower().count(value) == True:
+                    repeated_card_values +=1
+                    cards_for_straight += 1
+                    cards_not_in_straight = 0
+                    print(cards_for_straight)
+                    
+                    if repeated_card_values > 1:
+                        cards_for_straight = 0
+                    
+                    elif cards_for_straight == 5:
+                        return(cards_for_straight)
+                    
+                    else:
+                        pass
+
+                elif cards_not_in_straight == 7:
+                    cards_not_in_straight = 0
+                    cards_for_straight = 0
+                    
+                else:
+                    cards_not_in_straight += 1
+ 
+            else:
+                pass
+        
+        xindex += 1
+        yindex += 1
+
+    
+#%% 
+
+a= ['Ad', '2D', '10d', '4d', 'kd']
+
+Poker_cards = ['2','3','4','5','6','7','8','9','10','j','q','k', 'a']
+
+Poker_suits = ['d','c','h','s']
+    
+
+def ranking(hand):
+    xindex = 0
+    number_of_pairs = 0
+    number_of_triples = 0
+    number_of_fours = 0
+    
+    while xindex < (len(Poker_cards)):
+        
+        for value in Poker_cards[xindex]:
+            
+            number_of_same_values = 0
+    
+            for card in hand:
+                
+                if card.lower().count(value) == 1:
+                    number_of_same_values += 1
+                    
+                    if number_of_same_values == 2:
+                        number_of_pairs += 1
+                    
+                    elif number_of_same_values == 3:
+                        number_of_triples += 1
+                        
+                    elif number_of_same_values == 4:
+                        number_of_fours += 1
+                        
+                    else:
+                        pass
+    
+                else:
+                    pass
+                
+        xindex += 1
+    
+    if number_of_pairs == 2 and number_of_triples == 1:
+        print("Full House")
+        
+    elif number_of_fours == 1:
+        print("Four of a Kind")
+        
+    elif number_of_triples == 1:
+        print("Three of a Kind")
+        
+    elif number_of_pairs == 2:
+        print("Two Pair")
+        
+    elif number_of_pairs == 1:
+        print("Pair")
+    
+    else:
+        print("High Card")
+    
+ranking(a)
+
+#%% 
+
+a= ['ad', 'JD', '10d', 'Qd', 'kd']
+
+Poker_cards = ['2','3','4','5','6','7','8','9','10','j','q','k', 'a']
+
+Poker_suits = ['d','c','h','s']
+    
+def straight_type(hand):
+    
+    xindex = 0
+    yindex = 5
+
+    
+    while yindex <= (len(Poker_cards)):
+        cards_for_straight = 0
+    
+        b = Poker_cards[xindex:yindex]
+    
+        for value in b:
+            for card in hand:
+                
+                if card.lower().count(value) == True:
+                    cards_for_straight += 1
+                
+                else:
+                    pass
+        
+        xindex += 1
+        yindex += 1
+        
+        
+    print(yindex)
+    print(xindex)
+    print(cards_for_straight)
+
+straight_type(a)
+
+cards_for_royal_flush = 0
+
+c = Poker_cards[8:13]
+    
+for value in c:
+    for card in a:
+        if card.lower().count(value) == True:
+            cards_for_royal_flush += 1
+                
+        else:
+            pass
+
+if cards_for_royal_flush == 5:
+    print("Royal Flush")
