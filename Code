@@ -18,36 +18,64 @@ Poker_suits = ['d','c','h','s']
 
 
 def suits(hand):
+    """
     
-        Number_of_same_suits = 0
+    This function is used to count the number of same suits in the hand
+
+    Parameters
+    ----------
+    hand : TYPE
+        Contains the 5 cards i.e. the hand
+
+    Returns
+    -------
+    Number_of_same_suits: Int
+        Contains the number of same suits in the hand
+
+    """
         
-        for suit in Poker_suits:
-            for card in hand:
+    Number_of_same_suits = 0
+    
+    for suit in Poker_suits: ## Iterates for each suit 
+        for card in hand: ## Iterates for each card in hand whilst keeping the same suit
+            
+            if card.lower().count(suit) == True: ## Attempts to match up each card in the hand with a specific suit each time
+                Number_of_same_suits += 1
+                if Number_of_same_suits == 5:
+                    return(Number_of_same_suits)
                 
-                if card.lower().count(suit) == True:
-                    Number_of_same_suits += 1
-                    if Number_of_same_suits == 5:
-                        return(Number_of_same_suits)
-                    
-                else:
-                    Number_of_same_suits = 0
-        
-        
+            else:
+                Number_of_same_suits = 0 ## Sets the counter back to 0 if a card in the hand doesn't match up with the specific suit
+    
+    
 
 def straight_type(hand):
-    
-    xindex = 0
-    yindex = 5
-    
+    """
+
+    This function is used to determine whether the hand contains a straight 
+
+    Parameters
+    ----------
+    hand : TYPE
+        Contains the 5 cards i.e. the hand
+
+    Returns
+    -------
+    cards_for_straight : Int
+        Counts the number of consecutive numbers in order for a straight
+
+    """
+    xindex = 0 ## Counter for the index value for the list of cards
+    yindex = 5 ## Counter for the index value for the list of cards
 
     
-    while yindex <= (len(Poker_cards)):
-        cards_for_straight = 0
+    while yindex <= (len(Poker_cards)): ## Allows the iteration to be passed through the whole list only
+        cards_for_straight = 0 
         repeated_card_values = 0
     
-        b = Poker_cards[xindex:yindex]
+        b = Poker_cards[xindex:yindex] ## Grabs 5 cards in consecutive order from the list of cards each time
         for value in b:
-            repeated_card_values = 0
+            repeated_card_values = 0 ## Sets the counter back to zero every time when there's a new "value" 
             for card in hand:
                 
                 if card.lower().count(value) == True:
@@ -55,7 +83,7 @@ def straight_type(hand):
                     cards_for_straight += 1
                     
                     if repeated_card_values > 1:
-                        cards_for_straight = 0
+                        cards_for_straight = 0 ## Sets counter back to zero when there's more than one card in the hand that has the same value
                     
                     elif cards_for_straight == 5:
                         return(cards_for_straight)
@@ -69,26 +97,41 @@ def straight_type(hand):
             else:
                 pass
         
-        xindex += 1
+        xindex += 1 ## Adds one to the counter to check through the other values in the list of Poker_cards
         yindex += 1
                 
 
 
 def ranking(hand):
+    """
+    
+    This function is used to determine the ranking of the hand excluding the straights
+
+    Parameters
+    ----------
+    hand : TYPE
+        Contains the 5 cards i.e. the hand
+
+    Returns
+    -------
+    None.
+
+    """
+    
     xindex = 0
-    number_of_pairs = 0
-    number_of_triples = 0
-    number_of_fours = 0
+    number_of_pairs = 0 ## Number of times the hand contains 2 same values
+    number_of_triples = 0 ## Number of times the hand contains 3 same values
+    number_of_fours = 0 ## Number of times the hand contains 4 same values
     
     while xindex < (len(Poker_cards)):
         
         for value in Poker_cards[xindex]:
             
-            number_of_same_values = 0
+            number_of_same_values = 0 ## Sets the counter back to zero every time when there's a new "value" 
     
             for card in hand:
                 
-                if card.lower().count(value) == 1:
+                if card.lower().count(value) == 1: ## Counts the number of same values in the hand
                     number_of_same_values += 1
                     
                     if number_of_same_values == 2:
@@ -129,11 +172,27 @@ def ranking(hand):
         
         
 def main_ranking(number_of_same_suits, hand):
+    """
+    
+    This function 
+
+    Parameters
+    ----------
+    number_of_same_suits : TYPE
+        Contains the number of same suits in the hand
+    hand : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     if number_of_same_suits == 5:
         
         cards_for_royal_flush = 0
     
-        b = Poker_cards[8:13]
+        b = Poker_cards[8:13] ## Only taking 10,J,Q,K,A from the list
     
         for value in b:
             for card in hand:
@@ -144,7 +203,7 @@ def main_ranking(number_of_same_suits, hand):
                 else:
                     pass
                 
-        if cards_for_royal_flush == 5:
+        if cards_for_royal_flush == 5: ### Conditionals are in order of importance/ranking of the hand
             print("Royal Flush")
         
         elif straight_type(hand) == 5:
@@ -162,9 +221,9 @@ def main_ranking(number_of_same_suits, hand):
 
                         
                     
-def poker_hand_ranking(hand):
-    main_ranking(suits(hand), hand)
-    
+def poker_hand_ranking(hand):  # Main Function that takes the 5 cards in a list as the arguement
+    main_ranking(suits(hand), hand) 
+
                     
         
-poker_hand_ranking(['4s', '10c', '6h', '5s', '9d'])
+poker_hand_ranking(['9s', '10s', 'qs', 'js', 'Ks'])
